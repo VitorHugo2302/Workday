@@ -1,26 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
-package workday;
-
 import java.util.Scanner;
 
-/**
- *
- * @author Vitor Hugo
- */
-public class Workday {
+import Beneficios.AdministrarBeneficio;
 
-    /**
-     * @param args the command line arguments
-     */
+public class Workday {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         char opcao;
         do {
-            System.out.println("Escolha a opção desejada:");
+            System.out.println("Escolha uma opção:");
             System.out.println("1 - Realizar cadastros");
             System.out.println("2 - Administar benefícios");
             System.out.println("3 - Pagadoria");
@@ -32,19 +20,19 @@ public class Workday {
 
             switch (opcao) {
                 case '1':
-                    //codigo
+                    // codigo
                     break;
                 case '2':
-                    //codigo
+                    AdministrarBeneficio.listarMenus();
                     break;
                 case '3':
-                    //codigo 
+                    // codigo
                     break;
                 case '4':
-                    //codigo 
+                    // codigo
                     break;
                 case '5':
-                    //codigo 
+                    // codigo
                     break;
                 case 'S':
                     System.out.println("Encerrando o programa.");
@@ -56,5 +44,4 @@ public class Workday {
 
         scanner.close();
     }
-
 }
