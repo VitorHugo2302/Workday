@@ -1,28 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
-package main;
-
 import java.util.Scanner;
 
-/**
- *
- * @author Vitor Hugo
- */
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        Financeiro financeiro = new Financeiro();
 
         char opcao;
         do {
             System.out.println("Escolha a opção desejada:");
             System.out.println("1 - Realizar cadastros");
-            System.out.println("2 - Administar benefícios");
+            System.out.println("2 - Administrar benefícios");
             System.out.println("3 - Financeiro");
             System.out.println("4 - Funcionários");
             System.out.println("5 - Relatórios ");
@@ -32,19 +20,20 @@ public class Main {
 
             switch (opcao) {
                 case '1':
-                    //codigo
+                    // Código para realizar cadastros
                     break;
                 case '2':
-                    //codigo
+                    // Código para administrar benefícios
                     break;
                 case '3':
-                    //codigo 
+                    System.out.println("Acessando o módulo Financeiro...");
+                    financeiro.executar(scanner); 
                     break;
                 case '4':
-                    //codigo 
+                    // Código para funcionários
                     break;
                 case '5':
-                    //codigo 
+                    // Código para relatórios
                     break;
                 case 'S':
                     System.out.println("Encerrando o programa.");

@@ -1,4 +1,8 @@
-public static void exibirMenuFinanceiro() {
+import java.util.Scanner;
+
+public class Financeiro {
+
+    public void executar(Scanner scanner) {
         boolean voltar = false;
         while (!voltar) {
             System.out.println("\n=== Menu Financeiro ===");
