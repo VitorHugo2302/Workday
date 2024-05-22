@@ -5,6 +5,9 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Financeiro financeiro = new Financeiro();
+        Relatorios relatorios = new Relatorios();
+        Funcionarios funcionarios = new Funcionarios();
+        Beneficios beneficios = new Beneficios();
 
         char opcao;
         do {
@@ -19,17 +22,20 @@ public class Main {
 
             switch (opcao) {
                 case '1':
-                    // Código para administrar benefícios
+                System.out.println("Acessando o módulo Benefícios...");
+                beneficios.executar(scanner); 
                     break;
                 case '2':
-                    // Código para funcionários
+                System.out.println("Acessando o módulo Funcionários...");
+                funcionarios.executar(scanner); 
                     break;
                 case '3':
                     System.out.println("Acessando o módulo Financeiro...");
                     financeiro.executar(scanner); 
                     break;
                 case '4':
-                    // Código para relatórios
+                System.out.println("Acessando o módulo Funcionários...");
+                relatorios.executar(scanner); 
                     break;
                 case 'S':
                     System.out.println("Encerrando o programa.");
