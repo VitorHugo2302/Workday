@@ -11,8 +11,7 @@ public class Financeiro {
             System.out.println("3. Registro de Horas Trabalhadas");
             System.out.println("4. Folha de Pagamento");
             System.out.println("5. Relatórios");
-            System.out.println("6. Gestão de Benefícios");
-            System.out.println("7. Voltar ao Menu Principal");
+            System.out.println("6. Voltar ao Menu Principal");
             System.out.print("Escolha uma opção: ");
             
             int opcao = scanner.nextInt();
@@ -33,9 +32,6 @@ public class Financeiro {
                     System.out.println("Opção escolhida: Relatórios");
                     break;
                 case 6:
-                    System.out.println("Opção escolhida: Gestão de Benefícios");
-                    break;
-                case 7:
                     System.out.println("Voltando ao Menu Principal...");
                     voltar = true;
                     break;
