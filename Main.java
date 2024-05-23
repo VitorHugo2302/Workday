@@ -8,6 +8,7 @@ public class Main {
         Relatorios relatorios = new Relatorios();
         Funcionarios funcionarios = new Funcionarios();
         Beneficios beneficios = new Beneficios();
+        
 
         char opcao;
         do {
@@ -15,27 +16,27 @@ public class Main {
             System.out.println("1 - Benefícios");
             System.out.println("2 - Funcionários");
             System.out.println("3 - Financeiro");
-            System.out.println("4 - Relatórios ");
+            System.out.println("4 - Relatórios");
             System.out.println("S - Sair");
 
             opcao = Character.toUpperCase(scanner.next().charAt(0));
 
             switch (opcao) {
                 case '1':
-                System.out.println("Acessando o módulo Benefícios...");
-                beneficios.executar(scanner); 
+                    System.out.println("Acessando o módulo Benefícios...");
+                    beneficios.executar(scanner);
                     break;
                 case '2':
-                System.out.println("Acessando o módulo Funcionários...");
-                funcionarios.executar(scanner); 
+                    System.out.println("Acessando o módulo Funcionários...");
+                    funcionarios.executar(scanner);
                     break;
                 case '3':
                     System.out.println("Acessando o módulo Financeiro...");
-                    financeiro.executar(scanner); 
+                    financeiro.executar(scanner);
                     break;
                 case '4':
-                System.out.println("Acessando o módulo Funcionários...");
-                relatorios.executar(scanner); 
+                    System.out.println("Acessando o módulo Relatórios...");
+                    relatorios.executar(scanner);
                     break;
                 case 'S':
                     System.out.println("Encerrando o programa.");

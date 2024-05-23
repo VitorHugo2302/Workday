@@ -1,29 +1,22 @@
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Scanner;
 
-public class Financeiro {
-    private List<RegistroDeHoras> registrosDeHoras = new ArrayList<>();
+public class GerarContraCheque {
+    private List<RegistroDeHoras> registrosDeHoras;
     private List<Funcionario> funcionarios;
 
-    public Financeiro(List<Funcionario> funcionarios) {
+    public GerarContraCheque(List<Funcionario> funcionarios, List<RegistroDeHoras> registrosDeHoras) {
         this.funcionarios = funcionarios;
+        this.registrosDeHoras = registrosDeHoras;
     }
-
-
-	public Financeiro() {
-        
-    }
-
 
     public void executar(Scanner scanner) {
         boolean voltar = false;
         while (!voltar) {
-            System.out.println("\n=== Menu Financeiro ===");
-            System.out.println("1. Geração de Contracheques");
-            System.out.println("2. Registro de Horas Trabalhadas");
-            System.out.println("3. Folha de Pagamento");
-            System.out.println("4. Voltar ao Menu Principal");
+            System.out.println("\n=== Geração de Contracheques ===");
+            System.out.println("1. Gerar Contracheque");
+            System.out.println("2. Voltar ao Menu Principal");
             System.out.print("Escolha uma opção: ");
             
             int opcao = scanner.nextInt();
@@ -33,14 +26,6 @@ public class Financeiro {
                     gerarContracheque(scanner);
                     break;
                 case 2:
-                    registrarHoras(scanner);
-                    break;
-                case 3:
-                    System.out.println("Opção escolhida: Folha de Pagamento");
-                    FolhaPagamento folhaPagamento = new FolhaPagamento();
-                    folhaPagamento.calcularFolha(funcionarios, registrosDeHoras);
-                    break;
-                case 4:
                     System.out.println("Voltando ao Menu Principal...");
                     voltar = true;
                     break;
@@ -50,40 +35,8 @@ public class Financeiro {
         }
     }
 
-    private void registrarHoras(Scanner scanner) {
-        System.out.println("\n=== Registro de Horas Trabalhadas ===");
-
-        System.out.print("CPF do Funcionário: ");
-        String cpf = scanner.nextLine();
-        
-        boolean cpfCadastrado = false;
-        for (Funcionario f : funcionarios) {
-            if (f.getCpf().equals(cpf)) {
-                cpfCadastrado = true;
-                break;
-            }
-        }
-        
-        if (!cpfCadastrado) {
-            System.out.println("CPF não cadastrado. Por favor, cadastre o funcionário primeiro.");
-            return;
-        }
-
-        System.out.print("Data (dd/mm/aaaa): ");
-        String data = scanner.nextLine();
-        
-        System.out.print("Horas Trabalhadas: ");
-        int horasTrabalhadas = scanner.nextInt();
-        scanner.nextLine(); 
-
-        RegistroDeHoras registro = new RegistroDeHoras(cpf, data, horasTrabalhadas);
-        registrosDeHoras.add(registro);
-
-        System.out.println("Horas trabalhadas registradas com sucesso!");
-    }
-
     private void gerarContracheque(Scanner scanner) {
-        System.out.println("\n=== Geração de Contracheques ===");
+        System.out.println("\n=== Gerar Contracheque ===");
 
         System.out.print("CPF do Funcionário: ");
         String cpf = scanner.nextLine();
