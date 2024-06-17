@@ -1,21 +1,48 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Telas;
 
+import Banco.BancoMysql;
+import Classes.FolhaDePagamento;
+import Classes.Funcoes;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.*;
+import java.awt.*;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
+ * TelaGerarContracheque é uma classe que representa uma janela
+ * (JFrame) para exibir o contracheque de determinado funcionário.
+ * <p>
+ * A tela exibe o contracheque do funcionário selecionado pelo usuário
+ * </p>
  *
- * @author Vitor Hugo
+ * @version 1.0
+ * @since 2023-06-13
+ *
+ * @see javax.swing.JInternalFrame
+ * @see Banco.BancoMysql
  */
-public class TelaGerarContracheque extends javax.swing.JInternalFrame {
+public class TelaGerarContracheque extends javax.swing.JFrame {
+
+    private final Map<String, Integer> funcionarioMap = new HashMap<>();
 
     /**
-     * Creates new form TelaGerarContracheque
+     * Creates new form TelaSelecionarFuncionario
      */
     public TelaGerarContracheque() {
         initComponents();
-        panelTela.setVisible(false);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -27,208 +54,270 @@ public class TelaGerarContracheque extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelTela = new javax.swing.JPanel();
-        lblValorLiquido = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        lblSalarioBase = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        lblHorasTrabalhadas = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        lblFuncionario = new javax.swing.JLabel();
-        lblCPF = new javax.swing.JLabel();
-        lblCargo = new javax.swing.JLabel();
-        lblPeriodo = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaSalarioFuncionario = new javax.swing.JTable();
+        cboFuncionario = new javax.swing.JComboBox<>();
+        btnSelecionarFuncionario = new javax.swing.JButton();
 
-        setTitle("Contracheque");
-        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
-                formInternalFrameActivated(evt);
-            }
-            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Selecionar Funcionário");
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
-        lblValorLiquido.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblValorLiquido.setText("Valor Líquido: 2.654,00");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jLabel1.setText("Selecione o funcionário:");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("WORKDAY INFORMÁTICA EIRELI");
+        cboFuncionario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel10.setText("Recebi o valor líquido descrito neste recibo em: __________");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("11.235.653-0002-02");
-
-        lblSalarioBase.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblSalarioBase.setText("Salário Base:");
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setText("Rua Pelotas, 234 - Bairro Santa Helena - Contagem");
-
-        lblHorasTrabalhadas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblHorasTrabalhadas.setText("Horas trabalhadas:");
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setText("Demonstrativo de Pagamento");
-
-        lblFuncionario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblFuncionario.setText("Funcionário - VITOR HUGO SOARES MARTINS");
-
-        lblCPF.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblCPF.setText("CPF: 143.025.626-50");
-
-        lblCargo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblCargo.setText("Cargo: PROGRAMADOR");
-
-        lblPeriodo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblPeriodo.setText("Período: 01-2024");
-
-        tabelaSalarioFuncionario.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Referência", "Vencimentos", "Descontos"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Double.class, java.lang.Double.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+        btnSelecionarFuncionario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnSelecionarFuncionario.setText("Avançar");
+        btnSelecionarFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSelecionarFuncionarioMouseClicked(evt);
             }
         });
-        tabelaSalarioFuncionario.setColumnSelectionAllowed(true);
-        tabelaSalarioFuncionario.setPreferredSize(new java.awt.Dimension(321, 130));
-        jScrollPane1.setViewportView(tabelaSalarioFuncionario);
-
-        javax.swing.GroupLayout panelTelaLayout = new javax.swing.GroupLayout(panelTela);
-        panelTela.setLayout(panelTelaLayout);
-        panelTelaLayout.setHorizontalGroup(
-            panelTelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTelaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(290, 290, 290))
-            .addGroup(panelTelaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-            .addGroup(panelTelaLayout.createSequentialGroup()
-                .addGroup(panelTelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTelaLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(panelTelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelTelaLayout.createSequentialGroup()
-                                .addComponent(lblFuncionario)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblCPF)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblCargo)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblPeriodo))
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)))
-                    .addGroup(panelTelaLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(panelTelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(lblValorLiquido)
-                            .addComponent(lblSalarioBase)
-                            .addComponent(lblHorasTrabalhadas))))
-                .addContainerGap(80, Short.MAX_VALUE))
-        );
-        panelTelaLayout.setVerticalGroup(
-            panelTelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTelaLayout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelTelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblFuncionario)
-                    .addComponent(lblCPF)
-                    .addComponent(lblCargo)
-                    .addComponent(lblPeriodo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblValorLiquido)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel10)
-                .addGap(12, 12, 12)
-                .addComponent(lblSalarioBase)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblHorasTrabalhadas)
-                .addContainerGap(40, Short.MAX_VALUE))
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panelTela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(141, 141, 141)
+                        .addComponent(btnSelecionarFuncionario))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(cboFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panelTela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cboFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnSelecionarFuncionario)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-        // TODO add your handling code here:
-        TelaSelecionarFuncionario selecionar = new TelaSelecionarFuncionario();
-        selecionar.setVisible(true);
-    }//GEN-LAST:event_formInternalFrameActivated
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        try {
+            // TODO add your handling code here:
+            PreencheCboFuncionario();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaGerarContracheque.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
-    public void CarregarTela(int idFuncionario)
-    {
-        this.panelTela.setVisible(true);
+    /**
+     * Método de evento para o botão Selecionar Funcionário. Este método é chamado
+     * quando o botão é clicado e salva qual funcionário o usuário gostaria de ver o contracheque.
+     *
+     * @param evt evento de clique do mouse
+     */
+    private void btnSelecionarFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelecionarFuncionarioMouseClicked
+        // TODO add your handling code here:
+        String selectedName = (String) cboFuncionario.getSelectedItem();
+        int funcionarioID = funcionarioMap.get(selectedName);
+        try {
+            GerarContracheque(funcionarioID);
+        } catch (SQLException | ParseException ex) {
+            Logger.getLogger(TelaGerarContracheque.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dispose();
+    }//GEN-LAST:event_btnSelecionarFuncionarioMouseClicked
+
+    /**
+     * Método para carregar os dados das tabelas de funcionários e benefícios. Este método
+     * recupera os dados do banco de dados e preenche a tela com o contracheque do funcionário
+     *
+     * @param idFuncionario
+     * @throws java.sql.SQLException
+     * @throws java.text.ParseException
+     */
+    private void GerarContracheque(int idFuncionario) throws SQLException, ParseException {
+        JFrame frame = new JFrame("Contracheque");
+        frame.setSize(800, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Cria o painel principal
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        // Adiciona os componentes ao painel
+        var lblEmpresa = new javax.swing.JLabel();
+        lblEmpresa.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        lblEmpresa.setText("WORKDAY INFORMÁTICA EIRELI");
+        panel.add(lblEmpresa);
+
+        var lblCnpj = new javax.swing.JLabel();
+        lblCnpj.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        lblCnpj.setText("11.235.653-0002-02");
+        panel.add(lblCnpj);
+
+        var lblEndereco = new javax.swing.JLabel();
+        lblEndereco.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        lblEndereco.setText("Rua Pelotas, 234 - Bairro Santa Helena - Contagem");
+        panel.add(lblEndereco);
+
+        var lblDemonPag = new javax.swing.JLabel();
+        lblDemonPag.setFont(new java.awt.Font("Segoe UI", 1, 18));
+        lblDemonPag.setText("Demonstrativo de Pagamento");
+        panel.add(lblDemonPag);
+        panel.add(Box.createRigidArea(new Dimension(0, 10))); // Espaçamento
+
+        var retorno = BancoMysql.ExecutarConsulta("select * from funcionarios inner join beneficios on idBeneficios = idBeneficio where idFuncionarios = " + idFuncionario);
+        while (retorno.next()) {
+            var lblFunc = new javax.swing.JLabel();
+            lblFunc.setFont(new java.awt.Font("Segoe UI", 1, 14));
+            lblFunc.setText("Funcionário.: " + retorno.getString("nomeFuncionario").toUpperCase());
+            panel.add(lblFunc);
+
+            var lblCpf = new javax.swing.JLabel();
+            lblCpf.setFont(new java.awt.Font("Segoe UI", 1, 14));
+            lblCpf.setText("CPF: " + Classes.Funcoes.formatCPF(retorno.getString("cpfFuncionario")));
+            panel.add(lblCpf);
+
+            var lblCargo = new javax.swing.JLabel();
+            lblCargo.setFont(new java.awt.Font("Segoe UI", 1, 14));
+            lblCargo.setText("Cargo: " + retorno.getString("cargo").toUpperCase());
+            panel.add(lblCargo);
+
+            LocalDate dataAtual = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
+            String dataFormatada = dataAtual.format(formatter);
+            var lblData = new javax.swing.JLabel();
+            lblData.setFont(new java.awt.Font("Segoe UI", 1, 14));
+            lblData.setText("Período: " + dataFormatada);
+            panel.add(lblData);
+            panel.add(Box.createRigidArea(new Dimension(0, 10))); // Espaçamento
+
+            FolhaDePagamento folha = new FolhaDePagamento(retorno.getDouble("salario"), retorno.getInt("horasTrabalhadas"));
+
+            // Adiciona uma tabela para os vencimentos e descontos
+            String[] columnNames = {"Referência", "Vencimentos", "Descontos"};
+            Object[][] data = {
+                {"0001 - Salário Contratual", Funcoes.formatar(retorno.getDouble("salario")), ""},
+                {"0520 - Desconto INSS", "", folha.getInss()},
+                {"0720 - " + retorno.getString("nomeBeneficio"), "", "100,00"}
+            };
+            JTable table = new JTable(data, columnNames);
+            JScrollPane tableScrollPane = new JScrollPane(table);
+            panel.add(tableScrollPane);
+            panel.add(Box.createRigidArea(new Dimension(0, 10))); // Espaçamento
+
+            var lblValorLiquido = new javax.swing.JLabel();
+            lblValorLiquido.setFont(new java.awt.Font("Segoe UI", 1, 14));
+            lblValorLiquido.setText("Valor Líquido: " + folha.getSalarioLiquido());
+            panel.add(lblValorLiquido);
+            panel.add(Box.createRigidArea(new Dimension(0, 10))); // Espaçamento
+
+            var lblRecibo = new javax.swing.JLabel();
+            lblRecibo.setFont(new java.awt.Font("Segoe UI", 1, 14));
+            lblRecibo.setText("Recebi o valor líquido descrito neste recibo em: ____________");
+            panel.add(lblRecibo);
+            panel.add(Box.createRigidArea(new Dimension(0, 10))); // Espaçamento
+
+            var lblSalarioBase = new javax.swing.JLabel();
+            lblSalarioBase.setFont(new java.awt.Font("Segoe UI", 1, 14));
+            lblSalarioBase.setText("Salário Base: " + Funcoes.formatar(retorno.getDouble("salario")));
+            panel.add(lblSalarioBase);
+
+            var lblSalINSS = new javax.swing.JLabel();
+            lblSalINSS.setFont(new java.awt.Font("Segoe UI", 1, 14));
+            lblSalINSS.setText("Sal. Contr. INSS: " + Funcoes.formatar(retorno.getDouble("salario")));
+            panel.add(lblSalINSS);
+
+            var lblHorasTrabalhadas = new javax.swing.JLabel();
+            lblHorasTrabalhadas.setFont(new java.awt.Font("Segoe UI", 1, 14));
+            lblHorasTrabalhadas.setText("Horas Trabalhadas: " + retorno.getInt("horasTrabalhadas"));
+            panel.add(lblHorasTrabalhadas);
+            panel.add(Box.createRigidArea(new Dimension(0, 10))); // Espaçamento
+
+            var lblTot = new javax.swing.JLabel();
+            lblTot.setFont(new java.awt.Font("Segoe UI", 1, 14));
+            lblTot.setText("Total Bruto: " + folha.getSalarioBruto() + "   Descontos: " + folha.getInss());
+            panel.add(lblTot);
+        }
+        BancoMysql.FecharConexao();
+        // Adiciona o painel ao frame e torna a janela visível
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+    }
+
+    /**
+     * Método para carregar os dados da tabela de funcionários. Este método
+     * recupera os dados do banco de dados e preenche o combobox com esses
+     * dados.
+     *
+     * @throws java.sql.SQLException
+     */
+    public void PreencheCboFuncionario() throws SQLException {
+        var retorno = BancoMysql.ExecutarConsulta("select * from funcionarios");
+
+        while (retorno.next()) {
+            String nomeFuncionario = retorno.getString("nomeFuncionario");
+            int idFuncionarios = retorno.getInt("idFuncionarios");
+            cboFuncionario.addItem(nomeFuncionario);
+            funcionarioMap.put(nomeFuncionario, idFuncionarios);
+        }
+        BancoMysql.FecharConexao();
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(TelaGerarContracheque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(TelaGerarContracheque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(TelaGerarContracheque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(TelaGerarContracheque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new TelaGerarContracheque().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSelecionarFuncionario;
+    private javax.swing.JComboBox<String> cboFuncionario;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblCPF;
-    private javax.swing.JLabel lblCargo;
-    private javax.swing.JLabel lblFuncionario;
-    private javax.swing.JLabel lblHorasTrabalhadas;
-    private javax.swing.JLabel lblPeriodo;
-    private javax.swing.JLabel lblSalarioBase;
-    private javax.swing.JLabel lblValorLiquido;
-    private javax.swing.JPanel panelTela;
-    private javax.swing.JTable tabelaSalarioFuncionario;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,8 +16,19 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
+ * TelaRegistroHora é uma classe que representa uma janela interna
+ * (JInternalFrame) para o cadastro e gerenciamento das horas extras dos funcionários. Esta classe
+ * permite adicionar, editar e excluir horas dos funcionários em um banco de dados MySQL.
+ * <p>
+ * A tela inclui campos para o nome do funcionário, e horas trabalhadas, além de uma
+ * tabela para exibir as horas dos funcionários cadastrados.
+ * </p>
  *
- * @author Vitor Hugo
+ * @version 1.0
+ * @since 2023-06-13
+ *
+ * @see javax.swing.JInternalFrame
+ * @see Banco.BancoMysql
  */
 public class TelaRegistroHora extends javax.swing.JInternalFrame {
 
@@ -208,6 +219,13 @@ public class TelaRegistroHora extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método de evento para o botão Registrar Horas do Funcionário. Este método é
+     * chamado quando o botão é clicado e adiciona as horas extras do funcionário ao banco
+     * de dados.
+     *
+     * @param evt evento de clique do mouse
+     */
     private void btnRegistrarHorasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarHorasMouseClicked
         String horas = txtHorasTrabalhadas.getText();
         String cpf = txtCPF.getText().replaceAll("[^0-9]+", "");
@@ -237,6 +255,12 @@ public class TelaRegistroHora extends javax.swing.JInternalFrame {
         txtCPF.setText("");
     }//GEN-LAST:event_btnRegistrarHorasMouseClicked
 
+    /**
+     * Método de evento para o botão Editar Horas do Funcionário. Este método é chamado
+     * quando o botão é clicado e edita as horas dos funcionários selecionados na tabela.
+     *
+     * @param evt evento de clique do mouse
+     */
     private void btnEditarFuncionárioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarFuncionárioMouseClicked
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) tabelaRegistroHora.getModel();
@@ -262,6 +286,12 @@ public class TelaRegistroHora extends javax.swing.JInternalFrame {
         btnEditarFuncionário.setEnabled(false);
     }//GEN-LAST:event_btnEditarFuncionárioMouseClicked
 
+    /**
+     * Método de evento para o botão Deletar Horas do Funcionário. Este método é chamado
+     * quando o botão é clicado e deleta as horas dos funcionários selecionados na tabela.
+     *
+     * @param evt evento de clique do mouse
+     */
     private void btnDeletarHorasFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeletarHorasFuncionarioMouseClicked
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) tabelaRegistroHora.getModel();
@@ -298,6 +328,12 @@ public class TelaRegistroHora extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_formInternalFrameOpened
 
+    /**
+     * Método para carregar os dados da tabela de horas dos funcionários. Este método
+     * recupera os dados do banco de dados e preenche a tabela com esses dados.
+     *
+     * @throws java.sql.SQLException
+     */
     public void PreencheTabelaHorasFuncionario() throws SQLException {
         var retorno = BancoMysql.ExecutarConsulta("select * from funcionarios where horasTrabalhadas > 0");
         DefaultTableModel model = (DefaultTableModel) tabelaRegistroHora.getModel();

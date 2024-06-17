@@ -8,14 +8,26 @@ import Banco.BancoMysql;
 import Classes.FolhaDePagamento;
 import Classes.Funcoes;
 import java.sql.SQLException;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * TelaFolhaDePagamento é uma classe que representa uma janela interna
+ * (JInternalFrame) para exibir a folha de pagamento do mês atual.
+ * <p>
+ * A tela exibe a folha de pagamento da empresa Workday
+ * </p>
  *
- * @author Vitor Hugo
+ * @version 1.0
+ * @since 2023-06-13
+ *
+ * @see javax.swing.JInternalFrame
+ * @see Banco.BancoMysql
  */
 public class TelaFolhaDePagamento extends javax.swing.JInternalFrame {
 
@@ -96,23 +108,41 @@ public class TelaFolhaDePagamento extends javax.swing.JInternalFrame {
         try {
             // TODO add your handling code here:
             PreencheFolhaPagamento();
-        } catch (SQLException ex) {
+        } catch (SQLException | ParseException ex) {
             Logger.getLogger(TelaFolhaDePagamento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formInternalFrameOpened
-    public void PreencheFolhaPagamento() throws SQLException {
+    
+    /**
+     * Método para carregar os dados das tabelas de funcionários e benefícios. Este método
+     * recupera os dados do banco de dados e preenche a tela com esses
+     * dados.
+     *
+     * @throws java.sql.SQLException
+     * @throws java.text.ParseException
+     */
+    public void PreencheFolhaPagamento() throws SQLException, ParseException {
         var retorno = BancoMysql.ExecutarConsulta("select * from funcionarios inner join beneficios on idBeneficios = idBeneficio");
 
         LocalDate dataAtual = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
         String dataFormatada = dataAtual.format(formatter);
         txtFolha.setText("Folha de Pagamento dos Funcionários do mês " + dataFormatada + ":\n\n");
+
+        double salarioTotal = 0;
         while (retorno.next()) {
             FolhaDePagamento folha = new FolhaDePagamento(retorno.getDouble("salario"), retorno.getInt("horasTrabalhadas"));
 
             txtFolha.append(retorno.getString("nomeFuncionario") + ": Salário base: R$" + Funcoes.formatar(retorno.getDouble("salario"))
                     + ": Horas: " + retorno.getInt("horasTrabalhadas") + ": Salário bruto: R$" + folha.getSalarioBruto() + ": Benefícios " + retorno.getString("NomeBeneficio") + ";\n\n");
+
+            Locale locale = Locale.GERMANY;
+            NumberFormat numberFormat = NumberFormat.getInstance(locale);
+            Number number = numberFormat.parse(folha.getSalarioBruto());
+            double doubleValue = number.doubleValue();
+            salarioTotal += doubleValue;
         }
+        txtFolha.append("Valor mensal total: R$" + Funcoes.formatar(salarioTotal));
 
         BancoMysql.FecharConexao();
     }

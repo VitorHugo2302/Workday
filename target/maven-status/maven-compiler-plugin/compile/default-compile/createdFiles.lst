@@ -1,6 +1,5 @@
 Telas\TelaCadastroBeneficio$2.class
 Telas\TelaGerarContracheque.class
-Telas\TelaSelecionarFuncionario$2.class
 Telas\TelaRegistroHora$6.class
 Telas\TelaCadastroFuncionario.class
 Telas\TelaCadastroFuncionario$2.class
@@ -16,8 +15,8 @@ Telas\TelaRegistroHora$4.class
 Telas\TelaRegistroHora$2.class
 Telas\Login$2.class
 Telas\TelaRegistroHora.class
+Telas\TelaGerarContracheque$3.class
 Telas\TelaPrincipal$5.class
-Telas\TelaSelecionarFuncionario$3.class
 Telas\TelaSobre.class
 Telas\TelaCadastroFuncionario$4.class
 Classes\Beneficio.class
@@ -26,15 +25,12 @@ Telas\TelaPrincipal$6.class
 Telas\TelaCadastroFuncionario$1.class
 Telas\TelaGerarContracheque$2.class
 Telas\TelaFolhaDePagamento$1.class
-Telas\TelaSelecionarFuncionario$1.class
 Telas\TelaPrincipal$1.class
 Classes\Funcoes.class
-Telas\TelaSelecionarFuncionario.class
 Telas\TelaRegistroHora$5.class
 Telas\TelaCadastroBeneficio$3.class
 Telas\TelaCadastroBeneficio.class
 Telas\Login.class
-Telas\TelaCadastroFuncionario$6.class
 Telas\TelaPrincipal.class
 Telas\TelaRegistroHora$3.class
 Telas\TelaCadastroFuncionario$3.class

@@ -5,8 +5,13 @@
 package Banco;
 
 /**
+ * A classe BancoMysql é responsável por interagir com um banco de dados MySQL,
+ * permitindo adicionar, editar e excluir registros.
  *
- * @author Vitor Hugo
+ * @version 1.0
+ * @since 2023-06-13
+ *
+ * @see Banco.BancoMysql
  */
 import java.sql.*;
 
@@ -17,13 +22,25 @@ public class BancoMysql {
     private static final String PASSWORD = "workday";
     private static Connection conn = null;
     private static Statement statement;
-    private static ResultSet resultSet;
 
+    /**
+     * Obtém uma conexão com o banco de dados.
+     *
+     * @return A conexão estabelecida.
+     * @throws SQLException Se ocorrer um erro ao tentar obter a conexão.
+     */
     public static Connection getConnection() throws SQLException {
         statement = conn.createStatement();
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
 
+    /**
+     * Executa uma consulta SQL no banco de dados.
+     *
+     * @param sql A consulta SQL a ser executada.
+     * @return O resultado da consulta.
+     * @throws SQLException Se ocorrer um erro ao tentar executar a consulta.
+     */
     public static ResultSet ExecutarConsulta(String sql) throws SQLException {
 
         try {
@@ -32,7 +49,7 @@ public class BancoMysql {
                 conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
                 statement = conn.createStatement();
             }
-            return resultSet = statement.executeQuery(sql);
+            return statement.executeQuery(sql);
 
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Erro ao tentar acessar o banco!");
@@ -42,6 +59,13 @@ public class BancoMysql {
         return null;
     }
 
+     /**
+     * Deleta um registro do banco de dados.
+     *
+     * @param sql O comando SQL para deletar o registro.
+     * @return true se o registro foi deletado com sucesso, false caso contrário.
+     * @throws SQLException Se ocorrer um erro ao tentar deletar o registro.
+     */
     public static boolean Deletar(String sql) throws SQLException {
 
         try {
@@ -64,6 +88,13 @@ public class BancoMysql {
         return false;
     }
 
+    /**
+     * Atualiza um registro no banco de dados.
+     *
+     * @param sql O comando SQL para atualizar o registro.
+     * @return true se o registro foi atualizado com sucesso, false caso contrário.
+     * @throws SQLException Se ocorrer um erro ao tentar atualizar o registro.
+     */
     public static boolean Atualizar(String sql) throws SQLException {
 
         try {
@@ -87,6 +118,13 @@ public class BancoMysql {
         return false;
     }
 
+     /**
+     * Insere um novo registro no banco de dados.
+     *
+     * @param sql O comando SQL para inserir o novo registro.
+     * @return true se o registro foi inserido com sucesso, false caso contrário.
+     * @throws SQLException Se ocorrer um erro ao tentar inserir o registro.
+     */
     public static boolean Inserir(String sql) throws SQLException {
 
         try {
@@ -110,6 +148,11 @@ public class BancoMysql {
         return false;
     }
 
+    /**
+     * Fecha a conexão com o banco de dados.
+     *
+     * @throws SQLException Se ocorrer um erro ao tentar fechar a conexão.
+     */
     public static void FecharConexao() throws SQLException {
 
         try {

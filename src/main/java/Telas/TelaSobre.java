@@ -5,8 +5,11 @@
 package Telas;
 
 /**
+ * TelaSobre é uma classe que representa uma janela interna
+ * (JInternalFrame) para exibir o nome dos integrantes do projeto
+ * @version 1.0
+ * @since 2023-06-13
  *
- * @author Vitor Hugo
  */
 public class TelaSobre extends javax.swing.JInternalFrame {
 

@@ -4,10 +4,10 @@
  */
 package Classes;
 
-import java.text.NumberFormat;
-import java.util.Locale;
-
 /**
+ * A classe FolhaDePagamento representa uma folha de pagamento de um
+ * funcionário, calculando o salário líquido, salário bruto e o desconto do
+ * INSS.
  *
  * @author Vitor Hugo
  */
@@ -17,12 +17,19 @@ public class FolhaDePagamento {
     private double salarioBruto;
     private double inss;
 
+    /**
+     * Construtor para criar uma nova folha de pagamento com base no salário
+     * base e horas trabalhadas do funcionário.
+     *
+     * @param salarioBase O salário base do funcionário.
+     * @param horasTrabalhadas O número de horas trabalhadas pelo funcionário.
+     */
     public FolhaDePagamento(double salarioBase, int horasTrabalhadas) {
-         
-        double valorHoraExtra = salarioBase / 20;
+
+        double valorHoraExtra = salarioBase / 160; //dividir por 160 para saber quanto o funcionária ganha por hora
         double salarioComHorasExtras = salarioBase + (valorHoraExtra * horasTrabalhadas);
 
-        double totalBruto = salarioComHorasExtras;
+        double totalBruto = salarioComHorasExtras + 100; //adicionando 100 reais dos benefícios
 
         double inss = calcularINSS(totalBruto);
         double salarioLiquido = totalBruto - inss;
@@ -48,16 +55,30 @@ public class FolhaDePagamento {
         return inss;
     }
 
+    /**
+     * Obtém o salário líquido formatado como string.
+     *
+     * @return O salário líquido formatado.
+     */
     public String getSalarioLiquido() {
         return Funcoes.formatar(salarioLiquido);
     }
 
+    /**
+     * Obtém o salário bruto formatado como string.
+     *
+     * @return O salário bruto formatado.
+     */
     public String getSalarioBruto() {
         return Funcoes.formatar(salarioBruto);
     }
 
+    /**
+     * Obtém o valor do INSS formatado como string.
+     *
+     * @return O valor do INSS formatado.
+     */
     public String getInss() {
         return Funcoes.formatar(inss);
     }
-
 }

@@ -7,8 +7,14 @@ package Telas;
 import java.awt.Color;
 
 /**
+ * TelaPrincipal é uma classe que representa uma janela
+ * (JFrame) para selecionar a opção que deseja usar no sistema. Esta classe
+ * permite selecionar a função desejada.
+ * @version 1.0
+ * @since 2023-06-13
  *
- * @author Vitor Hugo
+ * @see javax.swing.JInternalFrame
+ * @see Banco.BancoMysql
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
@@ -214,7 +220,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void MenGerarContraChequeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenGerarContraChequeActionPerformed
         // TODO add your handling code here:
-        TelaSelecionarFuncionario selecionar = new TelaSelecionarFuncionario();
+        TelaGerarContracheque selecionar = new TelaGerarContracheque();
         selecionar.setVisible(true);
     }//GEN-LAST:event_MenGerarContraChequeActionPerformed
 

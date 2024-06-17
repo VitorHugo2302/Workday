@@ -8,7 +8,6 @@ import Banco.BancoMysql;
 import Classes.Funcoes;
 import java.sql.*;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -17,11 +16,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * Tela de Cadastro de Funcionários
+ * TelaCadastroFuncionario é uma classe que representa uma janela interna
+ * (JInternalFrame) para o cadastro e gerenciamento de funcionários. Esta classe
+ * permite adicionar, editar e excluir funcionários em um banco de dados MySQL.
+ * <p>
+ * A tela inclui campos para o nome do funcionário, cpf e etc, além de uma
+ * tabela para exibir os funcionários cadastrados.
+ * </p>
+ *
+ * @version 1.0
+ * @since 2023-06-13
+ *
+ * @see javax.swing.JInternalFrame
+ * @see Banco.BancoMysql
  */
 public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
 
@@ -282,6 +292,13 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
         setBounds(0, 0, 891, 445);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método de evento para o botão Adicionar Funcionário. Este método é
+     * chamado quando o botão é clicado e adiciona um novo funcionário ao banco
+     * de dados.
+     *
+     * @param evt evento de clique do mouse
+     */
     private void btnAdicionarFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdicionarFuncionarioMouseClicked
         String nome = txtNomeFuncionário.getText();
         String cpf = txtCPF.getText();
@@ -317,8 +334,10 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAdicionarFuncionarioMouseClicked
 
     /**
+     * Método para carregar os dados da tabela de funcionários. Este método
+     * recupera os dados do banco de dados e preenche a tabela com esses dados.
      *
-     * @throws SQLException
+     * @throws java.sql.SQLException
      */
     public void PreencheTabelaFuncionario() throws SQLException {
         var retorno = BancoMysql.ExecutarConsulta("select * from funcionarios");
@@ -334,23 +353,22 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
             });
         }
         BancoMysql.FecharConexao();
-        model.addTableModelListener(new TableModelListener() {
-            @Override
-            public void tableChanged(TableModelEvent e) {
-                if (e.getType() == TableModelEvent.UPDATE) {
-                    int row = e.getFirstRow();
-                    int column = e.getColumn();
-                    editedRows.add(row);
-                    btnEditarFuncionário.setEnabled(true);
-                }
+        model.addTableModelListener((TableModelEvent e) -> {
+            if (e.getType() == TableModelEvent.UPDATE) {
+                int row = e.getFirstRow();
+                editedRows.add(row);
+                btnEditarFuncionário.setEnabled(true);
             }
         });
 
     }
 
     /**
+     * Método para carregar os dados da tabela de benefícios. Este método
+     * recupera os dados do banco de dados e preenche o combobox com esses
+     * dados.
      *
-     * @throws SQLException
+     * @throws java.sql.SQLException
      */
     public void PreencheCboBeneficio() throws SQLException {
         var retorno = BancoMysql.ExecutarConsulta("select * from beneficios");
@@ -364,6 +382,12 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
         BancoMysql.FecharConexao();
     }
 
+    /**
+     * Método de evento para o botão Editar Funcionário. Este método é chamado
+     * quando o botão é clicado e edita os funcionários selecionados na tabela.
+     *
+     * @param evt evento de clique do mouse
+     */
     private void btnEditarFuncionárioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarFuncionárioMouseClicked
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) tabelaFuncionario.getModel();
@@ -396,6 +420,12 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
         btnEditarFuncionário.setEnabled(false);
     }//GEN-LAST:event_btnEditarFuncionárioMouseClicked
 
+    /**
+     * Método de evento para o botão Deletar Funcionário. Este método é chamado
+     * quando o botão é clicado e deleta os funcionários selecionados na tabela.
+     *
+     * @param evt evento de clique do mouse
+     */
     private void btnDeletarFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeletarFuncionarioMouseClicked
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) tabelaFuncionario.getModel();
@@ -422,7 +452,13 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_btnDeletarFuncionarioMouseClicked
-
+    /**
+     * Método de evento para a abertura do formulário. Este método é chamado
+     * quando a janela interna é aberta e carrega os dados da tabela e do
+     * combobox.
+     *
+     * @param evt evento de abertura da janela interna
+     */
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         try {
             // TODO add your handling code here:
@@ -432,12 +468,6 @@ public class TelaCadastroFuncionario extends javax.swing.JInternalFrame {
             Logger.getLogger(TelaCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formInternalFrameOpened
-
-    /**
-     *
-     * @param cpf
-     * @return
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarFuncionario;
